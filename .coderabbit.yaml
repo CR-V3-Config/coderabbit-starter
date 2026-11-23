@@ -37,6 +37,11 @@
 
 version: 3
 
+# Settings this file does not set are filled from your organization defaults in the CodeRabbit web app, so
+# what is already configured there (base branches, labels, filters) keeps applying. Values set here win;
+# lists combine. Set to false to make this file the only source for this repository.
+inheritance: true
+
 fun:
   # One or two sentences on how CodeRabbit should talk. Keep the first sentence; edit the nouns. 250 characters at most.
   # AGENT: in the last sentence, replace "authentication, payments or customer data" with the three things
