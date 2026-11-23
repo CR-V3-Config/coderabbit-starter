@@ -16,7 +16,8 @@ A starting point for configuring CodeRabbit on a repository, tuned for signal ov
 │   │   ├── python.md                     example language document
 │   │   └── migrations.md                 example, keep if you have migrations
 │   └── pre-merge-checks/
-│       └── scope-matches-description.md  one check, warning mode, never blocks
+│       ├── scope-matches-description.md  keep as is; warning mode, never blocks
+│       └── no-personal-data-in-logs.md   example check, warning mode, never blocks
 └── AGENT_BRIEF.md                        instructions for your coding agent
 ```
 
@@ -28,11 +29,11 @@ A starting point for configuring CodeRabbit on a repository, tuned for signal ov
 
 ## How to use it
 
-1. Copy `.coderabbit.yaml` and the `.coderabbit/` folder to the root of your repository, on a branch.
-2. Give your coding agent the block in `AGENT_BRIEF.md` with the repository checked out. It fills in the lines marked `# AGENT:` and replaces the example documents with ones for your product.
-3. Read what comes back, then open a pull request. On that pull request, comment `@coderabbitai configuration` and check that the reply names your V3 file as the source.
-4. Merge to the default branch. Pull requests from forks and from authors outside the repository read the configuration from the target branch, so it applies to everyone only once it is merged.
-5. To cover another repository, copy the same file and folder into it. The folder is only read from the repository under review.
+1. Pick where to start. The configuration applies only to the repository it is committed to, so begin with the one or two repositories where a bug costs the most and add the rest once you like the reviews.
+2. Give your coding agent the block in `AGENT_BRIEF.md`, this file and the folder, with your repositories checked out. It asks which repositories to set up, then for each one fills in the lines marked `# AGENT:` and replaces the example documents with ones for your product.
+3. If a repository already has a `.coderabbit.yaml` or a `.coderabbit/` folder, nothing is overwritten. The agent merges: settings your team already chose (base branches, labels, path filters, tool settings, existing instructions and checks) are kept and moved to their V3 keys, and the starter fills in only what is missing.
+4. Read what comes back, then open a pull request in each repository. On that pull request, comment `@coderabbitai configuration` and check that the reply names your V3 file as the source.
+5. Merge to the default branch. Pull requests from forks and from authors outside the repository read the configuration from the target branch, so it applies to everyone only once it is merged.
 
 ## How the folder works
 
