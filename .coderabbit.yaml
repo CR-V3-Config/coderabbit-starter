@@ -1,0 +1,133 @@
+# yaml-language-server: $schema=https://docs.coderabbit.ai/schema/schema.v3.json
+#
+# <Customer> x CodeRabbit, starter configuration (schema V3), <Month Day, Year>.
+#
+# WHAT THIS IS
+# A starting point for a repository, tuned for signal over noise: the review leads with defects, the
+# walkthrough stays small, and nothing here blocks a merge. It comes in two parts that travel together:
+#   .coderabbit.yaml   this file: the settings (how much feedback, when reviews run, what the summary shows)
+#   .coderabbit/       a folder of Markdown documents: review instructions and pre-merge checks
+# We go through both together on the first call, your coding agent fills in the lines that only your code
+# can answer, and we tune them from real reviews over the trial.
+#
+# WHERE IT GOES
+# Both parts go at the root of the repository, on the default branch. They apply to that repository only;
+# to cover another repository, copy the same file and folder into it. Requirements: the repository is on
+# GitHub.com, reviewed by CodeRabbit Cloud, and V3 configuration is enabled for your organization. To confirm
+# the file is in use, comment `@coderabbitai configuration` on a pull request and check the source it names.
+#
+# SET IN THE CODERABBIT WEB APP, NOT HERE
+# V3 keeps these out of the file: finishing touches (docstrings, unit tests, autofix), skipping reviews by
+# pull request title or author, learnings and issue scope, chat integrations, early access. The walkthrough
+# we send with this file lists the value we suggest for each.
+#
+# FOR YOUR CODING AGENT (Claude Code, Cursor, Codex, or any agent with the repository checked out)
+# Lines marked "# AGENT:" need a value only your repository knows. Fill those and nothing else: do not add,
+# remove or reorder other keys, and do not change a value that is already set. V3 rejects unknown keys, so a
+# key that is not already in this file does not belong in it. Write globs relative to the repository root.
+# If the same file and folder will be copied into several repositories, prefer patterns that match a folder
+# wherever it lives ("**/payments/**"). When you are done, delete the commented examples you replaced and
+# return the file and the folder for a human to read before anything is merged.
+
+version: 3
+
+fun:
+  # One or two sentences on how CodeRabbit should talk. Keep the first sentence; edit the nouns. 250 characters at most.
+  # AGENT: in the last sentence, replace "authentication, payments or customer data" with the three things
+  # that hurt most when they break in your product.
+  tone_instructions: >-
+    Be brief and concrete. Lead with the defect and its effect on users, data or money. No praise,
+    no style or naming remarks, no restating what the code does. Say when a change sits on a path that
+    handles authentication, payments or customer data.
+
+reviews:
+  behavior:
+    # chill = balanced. quiet = only the most important findings. assertive = more, and nitpickier.
+    profile: chill
+
+    # Every review prints a Merge Risk rating (Minimal, Low, Moderate, High, Critical) in its summary. This tells
+    # it what risk means in your codebase. It also drives `auto_approvals.max_merge_risk` if you turn that on later.
+    # AGENT: rewrite both lists in your terms. Under 3,000 characters.
+    merge_risk_instructions: >-
+      High risk: authentication or session handling, payments and billing, database migrations and schema
+      changes, anything that sends messages to customers, CI workflows and deployment configuration, and
+      changes to agent rule files. Low risk: copy, styling, tests only, docs, dependency patch bumps,
+      internal refactors covered by tests.
+
+    # Files not worth a review. Excluded files are not reviewed, not counted toward limits, and not read as context.
+    path_filters:
+      - "!**/*.lock"
+      - "!**/package-lock.json"
+      - "!**/pnpm-lock.yaml"
+      - "!**/yarn.lock"
+      - "!**/*.min.js"
+      - "!**/*.min.css"
+      - "!**/dist/**"
+      - "!**/build/**"
+      - "!**/vendor/**"
+      - "!**/*.snap"
+      - "!**/*.generated.*"
+      # AGENT: add generated code, recorded fixtures, large seed or snapshot data, and anything else no human reviews.
+
+    code_guidelines:
+      # Read by default: AGENTS.md, CLAUDE.md, .cursorrules, .cursor/rules/*, .claude/rules/**/*.md, GEMINI.md,
+      # copilot-instructions.md and the other common agent rule files. Two things are NOT read by default:
+      #   - documents those files reference with a link or "@path"; a reference does not pull the file in,
+      #   - anything reached only through a symlink; point at the real path.
+      filePatterns:
+        # AGENT: list each architecture, API or coding-standards document your rule files reference, with the
+        # source folders it governs. Object form so a document outside the source tree still applies.
+        # Delete these examples when you replace them.
+        - files: "docs/architecture/**/*.md"
+          applyTo: "**/*"
+        - files: "docs/api/conventions.md"
+          applyTo: "**/api/**"
+
+    multi_repo_analysis:
+      # Lets CodeRabbit use context from your other repositories when it reviews this one.
+      automatic_linking_mode: auto
+      # AGENT: if this repository calls, or is called by, another one (a shared API contract, shared types, a
+      # client of this service), uncomment and list it with one line on what it holds. Leave commented out
+      # if there is none.
+      # linked_repositories:
+      #   - repository: "your-org/backend-api"
+      #     instructions: "REST API this app calls; request and response types live in src/contracts."
+
+    # Off: CodeRabbit comments but never approves or requests changes, so no branch rule can be blocked by it.
+    # The dial for later: `enabled: true` with `max_merge_risk: low` approves only when the current commit's
+    # Merge Risk is Low or Minimal and its findings are resolved.
+    auto_approvals:
+      enabled: false
+
+    status:
+      # CodeRabbit reports review progress as a check on the pull request.
+      progress_updates: true
+      # A review that fails to run shows red, not green, so a missed review cannot pass a required check
+      # silently. Skipped and rate limited reviews still pass.
+      fail_on_error: true
+
+  auto_review:
+    enabled: true
+    drafts: false # draft pull requests are reviewed when marked ready, not on every push while drafting
+    # Re-review on every push, pausing after 5 reviewed pushes until someone comments `@coderabbitai review`.
+    # If most pushes come from a coding agent, set `incremental_review: false` and trigger the next pass
+    # yourself when a batch is ready; that is the single biggest lever on review volume and rate limits.
+    incremental_review: true
+    pause_after_reviewed_commits: 5
+
+  # ---- Minimal walkthrough: show the summary, collapse the rest, hide the extras. ----
+  # V3 already leaves out sequence diagrams, review effort estimates, poems and fortunes.
+  output:
+    walkthrough:
+      collapse: true
+      changed_files_summary: false
+      related_issues: false
+      related_prs: false
+    metadata:
+      labels:
+        mode: "off"
+      reviewers:
+        mode: "off"
+
+# Review instructions and pre-merge checks are not in this file. They are the Markdown documents in
+# .coderabbit/instructions/ and .coderabbit/pre-merge-checks/, one document per rule.
