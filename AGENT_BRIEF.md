@@ -45,7 +45,7 @@ In `.coderabbit/pre-merge-checks/`:
 
 Rules for every document: the body is plain instruction text, so put notes and questions in front matter comments or in your reply, never in the body. Every `id` is unique. Do not create `.coderabbit/` folders anywhere other than the repository root. Remove the "# AGENT:" comment from a document once you have filled it.
 
-Leave these exactly as they are unless the merge in step B says otherwise: `instructions/agent-rule-files.md`, `pre-merge-checks/scope-matches-description.md`, and in the YAML `version`, `profile`, `auto_approvals`, `status`, `auto_review` and `output`.
+Leave these exactly as they are unless the merge in step B says otherwise: `instructions/agent-rule-files.md`, `pre-merge-checks/scope-matches-description.md`, and in the YAML `version`, `inheritance`, `profile`, `auto_approvals`, `status`, `auto_review` and `output`.
 
 Return the file and the folder for each repository with a short list of what you changed, what you kept from an existing configuration, and anything you were unsure about. Do not merge them.
 ```
