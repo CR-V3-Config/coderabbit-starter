@@ -15,6 +15,12 @@
 # to cover another repository, copy the same file and folder into it. Requirements: the repository is on
 # GitHub.com, reviewed by CodeRabbit Cloud, and V3 configuration is enabled for your organization. To confirm
 # the file is in use, comment `@coderabbitai configuration` on a pull request and check the source it names.
+# Start with the one or two repositories where a bug costs the most; your coding agent asks which ones.
+#
+# IF THE REPOSITORY ALREADY HAS A CODERABBIT CONFIGURATION
+# Do not replace it with this file. Merge the two: every setting the team already chose (base branches,
+# labels, path filters, tool settings, existing instructions and checks) is kept and moved to its V3 key,
+# and this starter fills in only what is missing. The brief for your coding agent has the steps.
 #
 # SET IN THE CODERABBIT WEB APP, NOT HERE
 # V3 keeps these out of the file: finishing touches (docstrings, unit tests, autofix), skipping reviews by
@@ -115,19 +121,22 @@ reviews:
     incremental_review: true
     pause_after_reviewed_commits: 5
 
-  # ---- Minimal walkthrough: show the summary, collapse the rest, hide the extras. ----
-  # V3 already leaves out sequence diagrams, review effort estimates, poems and fortunes.
+  # ---- Walkthrough: collapsed, with everything inside. ----
+  # The summary stays on top. The walkthrough is one collapsed section; open it for the changed files
+  # summary, related issues and pull requests, and suggested labels and reviewers. Labels and reviewers are
+  # suggested only, never applied. V3 has no sequence diagrams, review effort estimates or poems.
   output:
     walkthrough:
       collapse: true
-      changed_files_summary: false
-      related_issues: false
-      related_prs: false
+      review_status: true
+      changed_files_summary: true
+      related_issues: true
+      related_prs: true
     metadata:
       labels:
-        mode: "off"
+        mode: suggest
       reviewers:
-        mode: "off"
+        mode: suggest
 
 # Review instructions and pre-merge checks are not in this file. They are the Markdown documents in
 # .coderabbit/instructions/ and .coderabbit/pre-merge-checks/, one document per rule.
